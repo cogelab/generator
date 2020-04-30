@@ -12,6 +12,7 @@ export interface PromptOptions {
 }
 
 export interface Templating {
+  init?: () => Promise<boolean | undefined>;
   questions?: (opts: PromptOptions) => Promise<Record<string, any>[]>;
   params?: (opts: PromptOptions) => Promise<any>;
   prompt?: (opts: PromptOptions) => Promise<any>;
