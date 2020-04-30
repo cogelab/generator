@@ -29,6 +29,11 @@
   },
   "dependencies": {
     "@tiopkg/utils": "^2.1.8",
+    "chalk": "^4.0.0",
+    "coge-environment": "^0.5.2",
+    "cross-spawn": "^7.0.2",
+    "cross-spawn-promise": "^0.10.2",
+    "dargs": "^7.0.0",
     "github-username": "^5.0.1",
     "shelljs": "^0.8.4"
   },

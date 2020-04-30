@@ -5,9 +5,10 @@ import nock = require('nock');
 import rimraf = require('rimraf');
 import shell = require('shelljs');
 import sinon = require('sinon');
-import * as cg from '..';
 
-import user = require('../user');
+import {Template} from "../template";
+
+import user = require('../utils/user');
 
 const tmpdir = path.join(os.tmpdir(), 'coge-user');
 
@@ -42,7 +43,8 @@ describe('module#user', function() {
   });
 
   it('is exposed on the Base generator', () => {
-    expect(require('../user')).toEqual(cg.user);
+    // @ts-ignore
+    expect(require('../utils/user')).toEqual((new Template()).user);
   });
 
   describe('.git', () => {
