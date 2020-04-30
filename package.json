@@ -30,7 +30,7 @@
   "dependencies": {
     "@tiopkg/utils": "^2.1.8",
     "chalk": "^4.0.0",
-    "coge-environment": "^0.5.2",
+    "coge-environment": "^0.5.3",
     "cross-spawn": "^7.0.2",
     "cross-spawn-promise": "^0.10.2",
     "dargs": "^7.0.0",
@@ -45,7 +45,7 @@
     "@types/node": "^13.13.4",
     "@types/shelljs": "^0.8.7",
     "@types/sinon": "^9.0.0",
-    "jest": "^25.4.0",
+    "jest": "^25.5.2",
     "nock": "^12.0.3",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
