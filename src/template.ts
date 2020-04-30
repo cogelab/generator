@@ -12,7 +12,7 @@ export interface PromptOptions {
 }
 
 export interface Templating {
-  questions?: Record<string, any>[];
+  questions?: (opts: PromptOptions) => Promise<Record<string, any>[]>;
   params?: (opts: PromptOptions) => Promise<any>;
   prompt?: (opts: PromptOptions) => Promise<any>;
   locals?: (locals: Record<string, any>) => Promise<Record<string, any> | undefined>;
@@ -29,10 +29,6 @@ export class Template extends InstallMixin(SpawnMixin(BaseTemplate)) implements 
 
   constructor(opts?: TemplateOptions) {
     super(opts);
-  }
-
-  async prompt(opts: PromptOptions): Promise<any> {
-    return;
   }
 
   async locals(locals: Record<string, any>): Promise<Record<string, any> | undefined> {
