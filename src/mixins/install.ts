@@ -81,7 +81,7 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
         const tplValues = assign(
           {
             skipInstall: false
-          }, this.options, {
+          }, this.opts, {
             commands: chalk.yellow.bold(msg.commands.join(' && '))
           }
         );
