@@ -1,4 +1,5 @@
 import {Environment, Logger} from "coge-environment";
+import * as fs from "./utils/fs";
 import * as user from "./utils/user";
 import isPlainObject from "@tiopkg/utils/is/plainObject";
 
@@ -11,6 +12,7 @@ export class BaseTemplate {
   env: Environment;
   logger: Logger;
 
+  fs = fs;
   user = user;
 
   constructor(opts?: BaseTemplateOptions) {
