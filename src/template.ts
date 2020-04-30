@@ -1,4 +1,4 @@
-import {InstallMixin} from "./mixins/install";
+import {InstallMixin, InstallOptions} from "./mixins/install";
 import {BaseTemplate, BaseTemplateOptions} from "./base";
 import {SpawnMixin} from "./mixins/spawn";
 
@@ -17,7 +17,7 @@ export interface Templating {
   prompt?: (opts: PromptOptions) => Promise<any>;
   locals?: (locals: Record<string, any>) => Promise<Record<string, any> | undefined>;
   filter?: (files: string[], locals: Record<string, any>) => Promise<string[]>;
-  install?: () => Promise<void>;
+  install?: (opts?: InstallOptions) => Promise<void>;
   end?: () => Promise<void>;
 }
 
