@@ -50,7 +50,7 @@ export function InstallMixin<T extends Constructor<any>>(superClass: T) {
 I'm all done. ${skipInstall ? "Just run" : "Running"} ${commands} \
 ${skipInstall ? "" : "for you "}to install the required dependencies.\
 ${skipInstall ? "" : " If this fails, try running the command yourself."}
-        `
+`
       };
 
       const getOptions = options => {
@@ -81,9 +81,7 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
         const tplValues = assign(
           {
             skipInstall: false
-          },
-          this.options,
-          {
+          }, this.options, {
             commands: chalk.yellow.bold(msg.commands.join(' && '))
           }
         );
@@ -135,7 +133,7 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
 
       try {
         await this.spawn(installer, args, spawnOptions);
-        this.log(installer + ' ' + args.join(' ') + ' ' + JSON.stringify(spawnOptions));
+        // this.log(installer + ' ' + args.join(' ') + ' ' + JSON.stringify(spawnOptions));
       } catch (e) {
         if (
           (e.exitStatus && e.exitSignal) &&
