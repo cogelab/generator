@@ -42,16 +42,14 @@ export function InstallMixin<T extends Constructor<any>>(superClass: T) {
      * @param {Boolean|Object} [options.yarn=false] - whether to run `yarn install` or can be options to pass to `dargs` as arguments
      * @param {Boolean} [options.skipMessage=false] - whether to log the used commands
      */
-    async installDependencies(options) {
+    async installDependencies(options?: InstallOptions) {
       options = options || {};
       const msg = {
         commands: <string[]>[],
         template: ({skipInstall, commands}) => `
-
 I'm all done. ${skipInstall ? "Just run" : "Running"} ${commands} \
 ${skipInstall ? "" : "for you "}to install the required dependencies.\
-${skipInstall ? "" : "If this fails, try running the command yourself."}
-
+${skipInstall ? "" : " If this fails, try running the command yourself."}
         `
       };
 
@@ -69,7 +67,7 @@ ${skipInstall ? "" : "If this fails, try running the command yourself."}
         await this.yarnInstall(null, getOptions(options.yarn));
       }
 
-      if (options.bower !== false) {
+      if (options.bower) {
         msg.commands.push('bower install');
         await this.bowerInstall(null, getOptions(options.bower));
       }
@@ -105,7 +103,7 @@ ${skipInstall ? "" : "If this fails, try running the command yourself."}
      * @param {Object} [spawnOptions] Options to pass `child_process.spawn`. ref
      *                                https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
      */
-    async install(
+    async scheduleInstall(
       installer: string,
       paths: string | string[] | null | undefined,
       options: Record<string, any>,
@@ -173,7 +171,7 @@ ${skipInstall ? "" : "If this fails, try running the command yourself."}
      * @param {Object} [spawnOptions] Options to pass `child_process.spawn`.
      */
     async bowerInstall(cmpnt: string | string[] | null, options, spawnOptions?) {
-      return this.install('bower', cmpnt, options, spawnOptions);
+      return this.scheduleInstall('bower', cmpnt, options, spawnOptions);
     };
 
     /**
@@ -186,7 +184,7 @@ ${skipInstall ? "" : "If this fails, try running the command yourself."}
      * @param {Object} [spawnOptions] Options to pass `child_process.spawn`.
      */
     async npmInstall(pkgs: string | string[] | null, options, spawnOptions?) {
-      return this.install('npm', pkgs, options, spawnOptions);
+      return this.scheduleInstall('npm', pkgs, options, spawnOptions);
     };
 
     /**
@@ -199,7 +197,7 @@ ${skipInstall ? "" : "If this fails, try running the command yourself."}
      * @param {Object} [spawnOptions] Options to pass `child_process.spawn`.
      */
     async yarnInstall(pkgs: string | string[] | null, options, spawnOptions?) {
-      return this.install('yarn', pkgs, options, spawnOptions);
+      return this.scheduleInstall('yarn', pkgs, options, spawnOptions);
     };
 
   }

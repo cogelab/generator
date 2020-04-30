@@ -17,7 +17,8 @@ export interface Templating {
   prompt?: (opts: PromptOptions) => Promise<any>;
   locals?: (locals: Record<string, any>) => Promise<Record<string, any> | undefined>;
   filter?: (files: string[], locals: Record<string, any>) => Promise<string[]>;
-  finish?: () => Promise<void>;
+  install?: () => Promise<void>;
+  end?: () => Promise<void>;
 }
 
 export interface TemplateOptions extends BaseTemplateOptions {
@@ -42,7 +43,11 @@ export class Template extends InstallMixin(SpawnMixin(BaseTemplate)) implements 
     return files;
   }
 
-  async finish(): Promise<void> {
+  async install(): Promise<void> {
+    return;
+  }
+
+  async end(): Promise<void> {
     return;
   }
 
