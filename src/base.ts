@@ -1,15 +1,15 @@
 import {Environment, Logger} from "coge-environment";
 import * as fs from "./utils/fs";
 import * as user from "./utils/user";
-import isPlainObject from "@tiopkg/utils/is/plainObject";
+import isPlainObject from "@artlab/utils/is/plainObject";
 
 export interface BaseTemplateOptions extends Record<string, any> {
   env?: Environment | Record<string, any>;
 }
 
 export class BaseTemplate {
-  opts;
-  env: Environment;
+  opts: BaseTemplateOptions;
+  env: Environment | Record<string, any>;
   logger: Logger;
 
   fs = fs;
@@ -17,7 +17,7 @@ export class BaseTemplate {
 
   constructor(opts?: BaseTemplateOptions) {
     this.opts = opts || {};
-    this.env = this.opts.env;
+    this.env = this.opts.env ?? {};
 
     if (!this.env) {
       this.env =  Environment.createEnv();

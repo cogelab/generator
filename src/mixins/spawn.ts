@@ -1,5 +1,6 @@
-import * as spawn from 'cross-spawn-promise';
-import merge from "@tiopkg/utils/object/merge";
+import merge from "@artlab/utils/object/merge";
+import spawn from 'cross-spawn-promise';
+import {CrossSpawnOptions} from "cross-spawn-promise";
 import {Constructor, Spawnable} from "../types";
 
 export function SpawnMixin<T extends Constructor<any>>(superClass: T) {
@@ -17,7 +18,7 @@ export function SpawnMixin<T extends Constructor<any>>(superClass: T) {
      * @param {object} [opt] any cross-spawn options
      * @return {Promise<String>} spawned process reference
      */
-    async spawn(cmd: string, args?: any[], opt?): Promise<Uint8Array> {
+    async spawn(cmd: string, args?: any[], opt?: Partial<CrossSpawnOptions>): Promise<Uint8Array> {
       opt = opt || {};
       return spawn(cmd, args, merge(opt, {stdio: 'inherit'}));
     }

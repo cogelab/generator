@@ -1,8 +1,9 @@
 import assert = require("assert");
-import * as chalk from "chalk";
-import * as dargs from "dargs";
-import assign from "@tiopkg/utils/assign";
+import assign from "@artlab/utils/assign";
 import {Constructor} from "../types";
+
+import chalk = require("chalk");
+import dargs = require("dargs");
 
 export interface InstallOptions {
   npm?: boolean | Record<string, any>;
@@ -13,11 +14,10 @@ export interface InstallOptions {
 
 export function InstallMixin<T extends Constructor<any>>(superClass: T) {
   return class extends superClass {
-    opts;
+    opts: any;
 
     constructor(...args: any[]) {
       super(...args);
-
     }
 
     /**
@@ -46,14 +46,14 @@ export function InstallMixin<T extends Constructor<any>>(superClass: T) {
       options = options || {};
       const msg = {
         commands: <string[]>[],
-        template: ({skipInstall, commands}) => `
+        template: ({skipInstall, commands}: any) => `
 I'm all done. ${skipInstall ? "Just run" : "Running"} ${commands} \
 ${skipInstall ? "" : "for you "}to install the required dependencies.\
 ${skipInstall ? "" : " If this fails, try running the command yourself."}
 `
       };
 
-      const getOptions = options => {
+      const getOptions = (options: any) => {
         return typeof options === 'object' ? options : null;
       };
 
@@ -168,7 +168,7 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
      * @param {Object} [options] Options to pass to `dargs` as arguments
      * @param {Object} [spawnOptions] Options to pass `child_process.spawn`.
      */
-    async bowerInstall(cmpnt: string | string[] | null, options, spawnOptions?) {
+    async bowerInstall(cmpnt: string | string[] | null, options: any, spawnOptions?: any) {
       return this.scheduleInstall('bower', cmpnt, options, spawnOptions);
     };
 
@@ -181,7 +181,7 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
      * @param {Object} [options] Options to pass to `dargs` as arguments
      * @param {Object} [spawnOptions] Options to pass `child_process.spawn`.
      */
-    async npmInstall(pkgs: string | string[] | null, options, spawnOptions?) {
+    async npmInstall(pkgs: string | string[] | null, options: any, spawnOptions?: any) {
       return this.scheduleInstall('npm', pkgs, options, spawnOptions);
     };
 
@@ -194,7 +194,7 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
      * @param {Object} [options] Options to pass to `dargs` as arguments
      * @param {Object} [spawnOptions] Options to pass `child_process.spawn`.
      */
-    async yarnInstall(pkgs: string | string[] | null, options, spawnOptions?) {
+    async yarnInstall(pkgs: string | string[] | null, options: any, spawnOptions?: any) {
       return this.scheduleInstall('yarn', pkgs, options, spawnOptions);
     };
 

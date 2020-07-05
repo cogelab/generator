@@ -15,60 +15,62 @@
   "files": [
     "lib"
   ],
-  "main": "./lib/index.js",
-  "typings": "./lib/index.d.ts",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "scripts": {
-    "clean": "rimraf lib",
-    "format": "prettier --write \"{src,test}/**/*.ts\" --single-quote --trailing-comma es5",
-    "prebuild": "npm run clean && tsc --version",
-    "build": "tsc --pretty",
-    "preversion": "npm test",
-    "version": "npm run build",
-    "postversion": "git push && git push --tags",
-    "test": "jest"
+    "prerelease": "cross-env CI=1 npm run test && npm run lint",
+    "release": "np",
+    "build": "al-tsc",
+    "build:full": "npm ci --ignore-scripts && npm run clean && npm run build",
+    "lint": "npm run prettier:check && npm run eslint",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "eslint": "al-eslint --report-unused-disable-directives --cache .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "prettier:cli": "al-prettier \"**/*.ts\" \"**/*.js\" \"**/*.md\"",
+    "prettier:check": "npm run prettier:cli -- --check",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "format": "npm run prettier:fix",
+    "clean": "al-clean dist sample-ts-node-module*.tgz *.tsbuildinfo",
+    "pretest": "npm run build",
+    "test": "al-mocha \"dist/__tests__/**/*.js\"",
+    "unit": "al-mocha \"dist/__tests__/unit/**/*.js\""
   },
   "dependencies": {
-    "@tiopkg/utils": "^2.1.8",
-    "chalk": "^4.0.0",
+    "@artlab/utils": "^2.4.1",
+    "chalk": "^4.1.0",
     "coge-environment": "^0.5.3",
-    "cross-spawn": "^7.0.2",
+    "cross-spawn": "^7.0.3",
     "cross-spawn-promise": "^0.10.2",
     "dargs": "^7.0.0",
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^9.0.1",
     "github-username": "^5.0.1",
     "shelljs": "^0.8.4"
   },
   "devDependencies": {
+    "@artlab/build": "^6.2.0",
+    "@artlab/eslint-config": "^8.1.0",
+    "@artlab/testlab": "^3.3.0",
     "@types/chalk": "^2.2.0",
-    "@types/fs-extra": "^8.1.0",
-    "@types/jest": "^25.2.1",
-    "@types/node": "^13.13.4",
-    "@types/shelljs": "^0.8.7",
-    "@types/sinon": "^9.0.0",
-    "jest": "^25.5.2",
-    "nock": "^12.0.3",
-    "prettier": "^2.0.5",
+    "@types/debug": "^4.1.5",
+    "@types/fs-extra": "^9.0.1",
+    "@types/jest": "^26.0.3",
+    "@types/lodash": "^4.14.157",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^14.0.14",
+    "@types/rimraf": "^3.0.0",
+    "@types/shelljs": "^0.8.8",
+    "@types/sinon": "^9.0.4",
+    "cross-env": "^7.0.2",
+    "mocha": "^8.0.1",
+    "nock": "^13.0.2",
+    "np": "^6.2.5",
     "rimraf": "^3.0.2",
-    "sinon": "^9.0.2",
-    "ts-jest": "^25.4.0",
-    "ts-node": "^8.9.1",
-    "typescript": "^3.8.3"
+    "sinon": "^9.0.2"
   },
   "engines": {
     "node": ">=10.0.0"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "src/__tests__/.*\\.test\\.ts$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }

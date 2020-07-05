@@ -1,22 +1,22 @@
-import os = require('os');
-import path = require('path');
-import makeDir = require('make-dir');
-import nock = require('nock');
-import rimraf = require('rimraf');
-import shell = require('shelljs');
-import sinon = require('sinon');
+import {expect} from "@artlab/testlab";
+import os from "os";
+import path from "path";
+import makeDir from "make-dir";
+import nock from "nock";
+import rimraf from "rimraf";
+import shell from "shelljs";
+import sinon from "sinon";
 
 import {Template} from "../template";
 
-import user = require('../utils/user');
-
+const user = require('../utils/user');
 const tmpdir = path.join(os.tmpdir(), 'coge-user');
 
-describe('module#user', function() {
-  let prevCwd;
-  let tmp;
+describe('module#user', function () {
+  let prevCwd: string;
+  let tmp: string;
 
-  beforeEach(function() {
+  beforeEach(function () {
     prevCwd = process.cwd();
     tmp = tmpdir;
     makeDir.sync(path.join(tmpdir, 'subdir'));
@@ -26,67 +26,66 @@ describe('module#user', function() {
     shell.exec('git config --local user.email coge@cogelab.com');
   });
 
-  afterEach(function(done) {
+  afterEach(function (done) {
     process.chdir(prevCwd);
     rimraf(tmpdir, done);
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     process.chdir(tmp);
     sinon.spy(shell, 'exec');
     user.clear();
   });
 
-  afterEach(function() {
+  afterEach(function () {
     // @ts-ignore
     shell.exec.restore();
   });
 
   it('is exposed on the Base generator', () => {
-    // @ts-ignore
-    expect(require('../utils/user')).toEqual((new Template()).user);
+    expect(require('../utils/user')).eql((new Template()).user);
   });
 
   describe('.git', () => {
     describe('.name()', () => {
-      it('is the name used by git', function() {
-        expect(user.git.name()).toEqual('Coge');
+      it('is the name used by git', function () {
+        expect(user.git.name()).eql('Coge');
       });
 
-      it('cache the value', function() {
+      it('cache the value', function () {
         user.git.name();
         user.git.name();
         // @ts-ignore
-        expect(shell.exec.callCount).toEqual(1);
+        expect(shell.exec.callCount).eql(1);
       });
 
-      it('cache is linked to the CWD', function() {
+      it('cache is linked to the CWD', function () {
         user.git.name();
         process.chdir('subdir');
         user.git.name();
         // @ts-ignore
-        expect(shell.exec.callCount).toEqual(2);
+        expect(shell.exec.callCount).eql(2);
       });
     });
 
     describe('.email()', () => {
-      it('is the email used by git', function() {
-        expect(user.git.email()).toEqual('coge@cogelab.com');
+      it('is the email used by git', function () {
+        expect(user.git.email()).eql('coge@cogelab.com');
       });
 
-      it('handle cache', function() {
+      it('handle cache', function () {
         user.git.email();
         user.git.email();
         // @ts-ignore
-        expect(shell.exec.callCount).toEqual(1);
+        expect(shell.exec.callCount).eql(1);
       });
 
-      it('cache is linked to the CWD', function() {
+      it('cache is linked to the CWD', function () {
         user.git.email();
         process.chdir('subdir');
         user.git.email();
         // @ts-ignore
-        expect(shell.exec.callCount).toEqual(2);
+        expect(shell.exec.callCount).eql(2);
       });
     });
   });
@@ -99,7 +98,7 @@ describe('module#user', function() {
           .get('/search/users?q=XXX')
           .times(1)
           .reply(200, {
-            items: [{ login: 'mockname' }]
+            items: [{login: 'mockname'}]
           });
       });
 
@@ -107,9 +106,9 @@ describe('module#user', function() {
         nock.restore();
       });
 
-      it('is the username used by GitHub', function() {
-        return user.github.username().then(res => {
-          expect(res).toEqual('mockname');
+      it('is the username used by GitHub', function () {
+        return user.github.username().then((res: string) => {
+          expect(res).eql('mockname');
         });
       });
     });
