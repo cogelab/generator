@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/cogelab/generator#readme",
   "files": [
-    "lib"
+    "dist"
   ],
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
