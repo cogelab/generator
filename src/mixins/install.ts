@@ -43,7 +43,7 @@ export function InstallMixin<T extends Constructor<any>>(superClass: T) {
      * @param {Boolean} [options.skipMessage=false] - whether to log the used commands
      */
     async installDependencies(options?: InstallOptions) {
-      options = options || {};
+      options = options ?? {};
       const msg = {
         commands: <string[]>[],
         template: ({skipInstall, commands}: any) => `
@@ -53,8 +53,8 @@ ${skipInstall ? '' : ' If this fails, try running the command yourself.'}
 `,
       };
 
-      const getOptions = (options: any) => {
-        return typeof options === 'object' ? options : null;
+      const getOptions = (o: any) => {
+        return typeof o === 'object' ? o : null;
       };
 
       if (options.npm !== false) {
@@ -109,9 +109,9 @@ ${skipInstall ? '' : ' If this fails, try running the command yourself.'}
       options: Record<string, any>,
       spawnOptions?: Record<string, any>,
     ) {
-      options = options || {};
-      spawnOptions = spawnOptions || {};
-      paths = Array.isArray(paths) ? paths : (paths && paths.split(' ')) || [];
+      options = options ?? {};
+      spawnOptions = spawnOptions ?? {};
+      paths = Array.isArray(paths) ? paths : paths?.split(' ') ?? [];
 
       let args: string[] = ['install'].concat(paths).concat(dargs(options));
 

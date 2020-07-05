@@ -6,6 +6,9 @@
     "rootDir": "src",
     "composite": true
   },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off"
+  },
   "include": [
     "src"
   ]

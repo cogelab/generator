@@ -38,8 +38,7 @@ describe('module#user', function () {
   });
 
   afterEach(function () {
-    // @ts-ignore
-    shell.exec.restore();
+    (shell.exec as any).restore();
   });
 
   it('is exposed on the Base generator', () => {
@@ -55,16 +54,14 @@ describe('module#user', function () {
       it('cache the value', function () {
         user.git.name();
         user.git.name();
-        // @ts-ignore
-        expect(shell.exec.callCount).eql(1);
+        expect((shell.exec as any).callCount).eql(1);
       });
 
       it('cache is linked to the CWD', function () {
         user.git.name();
         process.chdir('subdir');
         user.git.name();
-        // @ts-ignore
-        expect(shell.exec.callCount).eql(2);
+        expect((shell.exec as any).callCount).eql(2);
       });
     });
 
@@ -76,16 +73,14 @@ describe('module#user', function () {
       it('handle cache', function () {
         user.git.email();
         user.git.email();
-        // @ts-ignore
-        expect(shell.exec.callCount).eql(1);
+        expect((shell.exec as any).callCount).eql(1);
       });
 
       it('cache is linked to the CWD', function () {
         user.git.email();
         process.chdir('subdir');
         user.git.email();
-        // @ts-ignore
-        expect(shell.exec.callCount).eql(2);
+        expect((shell.exec as any).callCount).eql(2);
       });
     });
   });

@@ -16,7 +16,7 @@ export class BaseTemplate {
   user = user;
 
   constructor(opts?: BaseTemplateOptions) {
-    this.opts = opts || {};
+    this.opts = opts ?? {};
     this.env = this.opts.env ?? {};
 
     if (!this.env) {

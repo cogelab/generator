@@ -22,7 +22,7 @@ export function SpawnMixin<T extends Constructor<any>>(superClass: T) {
       args?: any[],
       opt?: Partial<CrossSpawnOptions>,
     ): Promise<Uint8Array> {
-      opt = opt || {};
+      opt = opt ?? {};
       return spawn(cmd, args, merge(opt, {stdio: 'inherit'}));
     }
   };
