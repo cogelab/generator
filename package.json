@@ -36,7 +36,7 @@
     "unit": "al-mocha \"dist/__tests__/unit/**/*.js\""
   },
   "dependencies": {
-    "@artlab/utils": "^2.4.1",
+    "@artlab/utils": "^2.4.2",
     "chalk": "^4.1.0",
     "coge-environment": "^0.5.3",
     "cross-spawn": "^7.0.3",
