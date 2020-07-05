@@ -1,13 +1,13 @@
-import {expect} from "@artlab/testlab";
-import os from "os";
-import path from "path";
-import makeDir from "make-dir";
-import nock from "nock";
-import rimraf from "rimraf";
-import shell from "shelljs";
-import sinon from "sinon";
+import {expect} from '@artlab/testlab';
+import os from 'os';
+import path from 'path';
+import makeDir from 'make-dir';
+import nock from 'nock';
+import rimraf from 'rimraf';
+import shell from 'shelljs';
+import sinon from 'sinon';
 
-import {Template} from "../template";
+import {Template} from '../template';
 
 const user = require('../utils/user');
 const tmpdir = path.join(os.tmpdir(), 'coge-user');
@@ -43,7 +43,7 @@ describe('module#user', function () {
   });
 
   it('is exposed on the Base generator', () => {
-    expect(require('../utils/user')).eql((new Template()).user);
+    expect(require('../utils/user')).eql(new Template().user);
   });
 
   describe('.git', () => {
@@ -98,7 +98,7 @@ describe('module#user', function () {
           .get('/search/users?q=XXX')
           .times(1)
           .reply(200, {
-            items: [{login: 'mockname'}]
+            items: [{login: 'mockname'}],
           });
       });
 

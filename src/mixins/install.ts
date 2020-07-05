@@ -1,9 +1,9 @@
-import assert = require("assert");
-import assign from "@artlab/utils/assign";
-import {Constructor} from "../types";
+import assert = require('assert');
+import assign from '@artlab/utils/assign';
+import {Constructor} from '../types';
 
-import chalk = require("chalk");
-import dargs = require("dargs");
+import chalk = require('chalk');
+import dargs = require('dargs');
 
 export interface InstallOptions {
   npm?: boolean | Record<string, any>;
@@ -47,10 +47,10 @@ export function InstallMixin<T extends Constructor<any>>(superClass: T) {
       const msg = {
         commands: <string[]>[],
         template: ({skipInstall, commands}: any) => `
-I'm all done. ${skipInstall ? "Just run" : "Running"} ${commands} \
-${skipInstall ? "" : "for you "}to install the required dependencies.\
-${skipInstall ? "" : " If this fails, try running the command yourself."}
-`
+I'm all done. ${skipInstall ? 'Just run' : 'Running'} ${commands} \
+${skipInstall ? '' : 'for you '}to install the required dependencies.\
+${skipInstall ? '' : ' If this fails, try running the command yourself.'}
+`,
       };
 
       const getOptions = (options: any) => {
@@ -74,20 +74,22 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
 
       assert(
         msg.commands.length,
-        'installDependencies needs at least one of `npm`, `bower` or `yarn` to run.'
+        'installDependencies needs at least one of `npm`, `bower` or `yarn` to run.',
       );
 
       if (!options.skipMessage) {
         const tplValues = assign(
           {
-            skipInstall: false
-          }, this.opts, {
-            commands: chalk.yellow.bold(msg.commands.join(' && '))
-          }
+            skipInstall: false,
+          },
+          this.opts,
+          {
+            commands: chalk.yellow.bold(msg.commands.join(' && ')),
+          },
         );
         this.log(msg.template(tplValues));
       }
-    };
+    }
 
     /**
      * Combine package manager cmd line arguments and run the `install` command.
@@ -105,7 +107,7 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
       installer: string,
       paths: string | string[] | null | undefined,
       options: Record<string, any>,
-      spawnOptions?: Record<string, any>
+      spawnOptions?: Record<string, any>,
     ) {
       options = options || {};
       spawnOptions = spawnOptions || {};
@@ -126,7 +128,8 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
       // Return early if we're skipping installation
       if (this.opts.skipInstall || this.opts['skip-install']) {
         this.log(
-          'Skipping install command: ' + chalk.yellow(installer + ' ' + args.join(' '))
+          'Skipping install command: ' +
+            chalk.yellow(installer + ' ' + args.join(' ')),
         );
         return;
       }
@@ -136,28 +139,33 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
         // this.log(installer + ' ' + args.join(' ') + ' ' + JSON.stringify(spawnOptions));
       } catch (e) {
         if (
-          (e.exitStatus && e.exitSignal) &&
+          e.exitStatus &&
+          e.exitSignal &&
           (this.opts.forceInstall || this.opts['force-install'])
         ) {
-          throw new Error(`Installation of ${installer} failed with code ${e.exitStatus || e.exitSignal}`)
+          throw new Error(
+            `Installation of ${installer} failed with code ${
+              e.exitStatus || e.exitSignal
+            }`,
+          );
         }
         this.log(
           chalk.red('Could not finish installation. \n') +
-          'Please install ' +
-          installer +
-          ' with ' +
-          chalk.yellow('npm install -g ' + installer) +
-          ' and try again. \n' +
-          'If ' +
-          installer +
-          ' is already installed, try running the following command manually: ' +
-          chalk.yellow(installer + ' ' + args.join(' '))
+            'Please install ' +
+            installer +
+            ' with ' +
+            chalk.yellow('npm install -g ' + installer) +
+            ' and try again. \n' +
+            'If ' +
+            installer +
+            ' is already installed, try running the following command manually: ' +
+            chalk.yellow(installer + ' ' + args.join(' ')),
         );
         if (this.opts.forceInstall || this.opts['force-install']) {
           throw e;
         }
       }
-    };
+    }
 
     /**
      * Receives a list of `components` and an `options` object to install through bower.
@@ -168,9 +176,13 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
      * @param {Object} [options] Options to pass to `dargs` as arguments
      * @param {Object} [spawnOptions] Options to pass `child_process.spawn`.
      */
-    async bowerInstall(cmpnt: string | string[] | null, options: any, spawnOptions?: any) {
+    async bowerInstall(
+      cmpnt: string | string[] | null,
+      options: any,
+      spawnOptions?: any,
+    ) {
       return this.scheduleInstall('bower', cmpnt, options, spawnOptions);
-    };
+    }
 
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
@@ -181,9 +193,13 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
      * @param {Object} [options] Options to pass to `dargs` as arguments
      * @param {Object} [spawnOptions] Options to pass `child_process.spawn`.
      */
-    async npmInstall(pkgs: string | string[] | null, options: any, spawnOptions?: any) {
+    async npmInstall(
+      pkgs: string | string[] | null,
+      options: any,
+      spawnOptions?: any,
+    ) {
       return this.scheduleInstall('npm', pkgs, options, spawnOptions);
-    };
+    }
 
     /**
      * Receives a list of `packages` and an `options` object to install through yarn.
@@ -194,9 +210,12 @@ ${skipInstall ? "" : " If this fails, try running the command yourself."}
      * @param {Object} [options] Options to pass to `dargs` as arguments
      * @param {Object} [spawnOptions] Options to pass `child_process.spawn`.
      */
-    async yarnInstall(pkgs: string | string[] | null, options: any, spawnOptions?: any) {
+    async yarnInstall(
+      pkgs: string | string[] | null,
+      options: any,
+      spawnOptions?: any,
+    ) {
       return this.scheduleInstall('yarn', pkgs, options, spawnOptions);
-    };
-
-  }
+    }
+  };
 }

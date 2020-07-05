@@ -17,7 +17,7 @@ const emailCache = new Map();
 export const clear = () => {
   nameCache.clear();
   emailCache.clear();
-}
+};
 
 export const git = {
   /**
@@ -33,7 +33,9 @@ export const git = {
     }
 
     if (shell.which('git')) {
-      name = shell.exec('git config --get user.name', {silent: true}).stdout.trim();
+      name = shell
+        .exec('git config --get user.name', {silent: true})
+        .stdout.trim();
       nameCache.set(process.cwd(), name);
     }
 
@@ -53,13 +55,15 @@ export const git = {
     }
 
     if (shell.which('git')) {
-      email = shell.exec('git config --get user.email', {silent: true}).stdout.trim();
+      email = shell
+        .exec('git config --get user.email', {silent: true})
+        .stdout.trim();
       emailCache.set(process.cwd(), email);
     }
 
     return email;
-  }
-}
+  },
+};
 
 /**
  * Retrieves GitHub's username from the GitHub API
@@ -67,7 +71,7 @@ export const git = {
  *                   get the information
  */
 export const github = {
-  username: () => githubUsername(git.email())
+  username: () => githubUsername(git.email()),
 };
 
 // const user: User = {git, github};

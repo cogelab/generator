@@ -1,9 +1,9 @@
-import {InstallMixin, InstallOptions} from "./mixins/install";
-import {BaseTemplate, BaseTemplateOptions} from "./base";
-import {SpawnMixin} from "./mixins/spawn";
+import {InstallMixin, InstallOptions} from './mixins/install';
+import {BaseTemplate, BaseTemplateOptions} from './base';
+import {SpawnMixin} from './mixins/spawn';
 
 export interface Prompter<Q, T> {
-  prompt: (questions: Q) => Promise<T>
+  prompt: (questions: Q) => Promise<T>;
 }
 
 export interface PromptOptions {
@@ -16,27 +16,34 @@ export interface Templating {
   questions?: (opts: PromptOptions) => Promise<Record<string, any>[]>;
   params?: (opts: PromptOptions) => Promise<any>;
   prompt?: (opts: PromptOptions) => Promise<any>;
-  locals?: (locals: Record<string, any>) => Promise<Record<string, any> | undefined>;
+  locals?: (
+    locals: Record<string, any>,
+  ) => Promise<Record<string, any> | undefined>;
   filter?: (files: string[], locals: Record<string, any>) => Promise<string[]>;
   install?: (opts?: InstallOptions) => Promise<void>;
   end?: () => Promise<void>;
 }
 
-export interface TemplateOptions extends BaseTemplateOptions {
-}
+export interface TemplateOptions extends BaseTemplateOptions {}
 
-export class Template extends InstallMixin(SpawnMixin(BaseTemplate)) implements Templating {
+export class Template extends InstallMixin(SpawnMixin(BaseTemplate))
+  implements Templating {
   opts: TemplateOptions;
 
   constructor(opts?: TemplateOptions) {
     super(opts);
   }
 
-  async locals(locals: Record<string, any>): Promise<Record<string, any> | undefined> {
+  async locals(
+    locals: Record<string, any>,
+  ): Promise<Record<string, any> | undefined> {
     return locals;
   }
 
-  async filter(files: string[], locals: Record<string, any>): Promise<string[]> {
+  async filter(
+    files: string[],
+    locals: Record<string, any>,
+  ): Promise<string[]> {
     return files;
   }
 
@@ -47,5 +54,4 @@ export class Template extends InstallMixin(SpawnMixin(BaseTemplate)) implements 
   async end(): Promise<void> {
     return;
   }
-
 }

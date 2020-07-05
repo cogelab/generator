@@ -1,7 +1,7 @@
-import {Environment, Logger} from "coge-environment";
-import * as fs from "./utils/fs";
-import * as user from "./utils/user";
-import isPlainObject from "@artlab/utils/is/plainObject";
+import {Environment, Logger} from 'coge-environment';
+import * as fs from './utils/fs';
+import * as user from './utils/user';
+import isPlainObject from '@artlab/utils/is/plainObject';
 
 export interface BaseTemplateOptions extends Record<string, any> {
   env?: Environment | Record<string, any>;
@@ -20,7 +20,7 @@ export class BaseTemplate {
     this.env = this.opts.env ?? {};
 
     if (!this.env) {
-      this.env =  Environment.createEnv();
+      this.env = Environment.createEnv();
     } else if (isPlainObject(this.env)) {
       const env = Environment.createEnv();
       Object.assign(env, this.env);
