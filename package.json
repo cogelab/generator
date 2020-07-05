@@ -47,9 +47,9 @@
     "shelljs": "^0.8.4"
   },
   "devDependencies": {
-    "@artlab/build": "^6.2.0",
-    "@artlab/eslint-config": "^8.1.0",
-    "@artlab/testlab": "^3.3.0",
+    "@artlab/build": "^6.2.1",
+    "@artlab/eslint-config": "^8.1.1",
+    "@artlab/testlab": "^3.3.1",
     "@types/chalk": "^2.2.0",
     "@types/debug": "^4.1.5",
     "@types/fs-extra": "^9.0.1",
