@@ -1,4 +1,4 @@
-import {expect} from '@artlab/testlab';
+import {expect} from '@loopback/testlab';
 import os from 'os';
 import path from 'path';
 import makeDir from 'make-dir';

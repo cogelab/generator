@@ -1,5 +1,5 @@
-const {mergeMochaConfigs} = require('@artlab/build');
-const defaultConfig = require('@artlab/build/config/.mocharc.json');
+const {mergeMochaConfigs} = require('@loopback/build');
+const defaultConfig = require('@loopback/build/config/.mocharc.json');
 
 const MONOREPO_CONFIG = {
   parallel: true,

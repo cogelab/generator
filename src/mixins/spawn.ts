@@ -1,4 +1,4 @@
-import merge from '@artlab/utils/object/merge';
+import merge from '@tib/utils/object/merge';
 import spawn from 'cross-spawn-promise';
 import {CrossSpawnOptions} from 'cross-spawn-promise';
 import {Constructor, Spawnable} from '../types';
