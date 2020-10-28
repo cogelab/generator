@@ -26,7 +26,8 @@ export interface Templating {
 
 export interface TemplateOptions extends BaseTemplateOptions {}
 
-export class Template extends InstallMixin(SpawnMixin(BaseTemplate))
+export class Template
+  extends InstallMixin(SpawnMixin(BaseTemplate))
   implements Templating {
   opts: TemplateOptions;
 
