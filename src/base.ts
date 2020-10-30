@@ -1,7 +1,7 @@
 import {Environment, Logger} from 'coge-environment';
 import * as fs from './utils/fs';
 import * as user from './utils/user';
-import isPlainObject from '@tib/utils/is/plainObject';
+import isPlainObject from '@loopx/utils/is/plainObject';
 
 export interface BaseTemplateOptions extends Record<string, any> {
   env?: Environment | Record<string, any>;

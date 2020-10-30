@@ -1,5 +1,5 @@
 import assert = require('assert');
-import assign from '@tib/utils/assign';
+import assign from '@loopx/utils/assign';
 import {Constructor} from '../types';
 
 import chalk = require('chalk');
