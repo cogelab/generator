@@ -1,9 +1,8 @@
 import assert = require('assert');
 import assign from '@loopx/utils/assign';
 import {Constructor} from '../types';
-
+import dargs from 'dargs';
 import chalk = require('chalk');
-import dargs = require('dargs');
 
 export interface InstallOptions {
   npm?: boolean | Record<string, any>;
