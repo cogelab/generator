@@ -28,7 +28,8 @@ export interface TemplateOptions extends BaseTemplateOptions {}
 
 export class Template
   extends InstallMixin(SpawnMixin(BaseTemplate))
-  implements Templating {
+  implements Templating
+{
   opts: TemplateOptions;
 
   constructor(opts?: TemplateOptions) {
